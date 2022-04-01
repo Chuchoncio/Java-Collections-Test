@@ -8,6 +8,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
+import entidades.Libro;
+import entidades.Alumno;
+import entidades.Perro;
+import java.util.Date;
+import java.util.TreeSet;
 
 public class TestingCollections {
     
@@ -127,11 +132,147 @@ public class TestingCollections {
         System.out.println("Datos ordenados");
         mostrarDatosTreeMap(alumnosTree);
     }
-
-    public static void main(String[] args) {
-        //operacionesListas();
-        //operacionesConjuntos();
-        operacionesMapas();
+    
+    public static void mostrarObjetosListLibro(ArrayList<Libro> libList) {
+        System.out.println("Imprimiendo Lista");
+        for(Libro lib : libList)
+            System.out.println(lib);
+    }
+    
+    public static void operacionesObjetosLista() {
+        ArrayList<Libro> listaLibros = new ArrayList();
+        Date fechaPublicLibro1 = new Date(2008-1900, 9, 14);
+        Date fechaPublicLibro2 = new Date(2006-1900, 06, 17);
+        Date fechaPublicLibro3 = new Date(2007-1900, 9, 21);
+        
+        Libro lib1 = new Libro(12345, "El Heroe de las Eras", "Brandon Sanderson",
+                               fechaPublicLibro1);
+        Libro lib2 = new Libro(13548, "El Imperio Final", "Brandon Sanderson",
+                               fechaPublicLibro2);
+        Libro lib3 = new Libro(13548, "El Pozo de la Ascension", "Brandon Sanderson",
+                               fechaPublicLibro3);
+        
+        listaLibros.add(lib1);
+        listaLibros.add(lib2);
+        listaLibros.add(lib3);
+        
+        System.out.println("Lista sin ordenar");
+        mostrarObjetosListLibro(listaLibros);
+        
+        listaLibros.sort(Libro.compararLibro);
+        
+        System.out.println("Lista ordenada");
+        mostrarObjetosListLibro(listaLibros);
+    }
+    
+    public static void mostrarObjetosMap(HashMap<Integer, Alumno> alumMap) {
+        for(Map.Entry<Integer, Alumno> entry : alumMap.entrySet()) {
+            System.out.println("Llave: " + entry.getKey());
+            System.out.println("Valor: " + entry.getValue());
+        }
+    }
+    
+    public static void operacionesObjetosMapas() {
+        HashMap <Integer, Alumno> alumnos = new HashMap();
+        
+        Alumno alum1 = new Alumno("Juan Manuel", "Pergola", 39515920);
+        int dni = 39515920;
+        
+        alumnos.put(dni, alum1);
+        mostrarObjetosMap(alumnos);
+    }
+    
+    public static void mostrarObjetosListPerro(ArrayList<Perro> dogList) {
+        System.out.println("Imprimiendo Lista");
+        for(Perro dog : dogList)
+            System.out.println(dog);
+    }
+    
+    public static void operacionesObjetosConj() {
+        HashSet<Perro> perrosSet = new HashSet();
+        ArrayList<Perro> perrosLista = new ArrayList(perrosSet);
+        
+        Perro dog1 = new Perro(8, "Snoopy");
+        Perro dog2 = new Perro(1, "Pochita");
+        Perro dog3 = new Perro(3, "Santino");
+        
+        perrosLista.add(dog1);
+        perrosLista.add(dog2);
+        perrosLista.add(dog3);
+        
+        mostrarObjetosListPerro(perrosLista);
+        perrosLista.sort(Perro.compararEdad);
+        mostrarObjetosListPerro(perrosLista);
+    }
+    
+    public static void mostrarObjetosTreeSet(TreeSet<Perro> dogies) {
+        for(Perro dog : dogies) {
+            System.out.println(dog);
+        }
+    }
+    
+    public static void operacionesObjetosTreeSet() {
+        TreeSet<Perro> perros = new TreeSet(Perro.compararEdad);
+        
+        Perro dog1 = new Perro(8, "Snoopy");
+        Perro dog2 = new Perro(1, "Pochita");
+        Perro dog3 = new Perro(3, "Santino");
+        
+        perros.add(dog1);
+        perros.add(dog2);
+        perros.add(dog3);
+        
+        mostrarObjetosTreeSet(perros);
+    }
+    
+    public static void mostrarObjetosListAlumno(ArrayList<Alumno> alumnos) {
+        System.out.println("Imprimiendo Lista");
+        for(Alumno alum : alumnos)
+            System.out.println(alum);
+    }
+    
+    public static HashMap<Integer, Alumno> operacionesObjetosHashMap() {
+        HashMap<Integer, Alumno> alumnos = new HashMap();
+        
+        Alumno alum1 = new Alumno("Juan Manuel", "Pergola", 39515920);
+        int dniAl1 = 39515920;
+        
+        Alumno alum2 = new Alumno("Leandro", "Deferrari", 37515920);
+        int dniAl2 = 37515920;
+        
+        Alumno alum3 = new Alumno("Agustin", "Dedico", 43515920);
+        int dniAl3 = 43515920;
+        
+        alumnos.put(dniAl1, alum1);
+        alumnos.put(dniAl2, alum2);
+        alumnos.put(dniAl3, alum3);
+        
+        // map.values() retorna una coleccion segun los valores del mapa
+        ArrayList<Alumno> nombres = new ArrayList(alumnos.values());
+        
+        System.out.println("\nLista desordenada");
+        mostrarObjetosMap(alumnos);
+        
+        nombres.sort(Alumno.compararDni);
+        
+        System.out.println("\nLista ordenada");
+        mostrarObjetosListAlumno(nombres);
+        
+        return alumnos;
     }
 
+    public static void main(String[] args) {
+        HashMap<Integer, Alumno> alumnos = new HashMap();
+        
+        //operacionesListas();
+        //operacionesConjuntos();
+        //operacionesMapas();
+        
+        //operacionesObjetosLista();
+        //operacionesObjetosConj();
+        //operacionesObjetosMapas();
+        
+        //operacionesObjetosTreeSet();
+        alumnos = operacionesObjetosHashMap();
+    }
 }
